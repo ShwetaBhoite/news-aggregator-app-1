@@ -42,7 +42,7 @@ function getNews(news)
         }
         else
         {
-               article_area.innerHTML='<p class="not-found" no article was found based on serach><p>';
+               article_area.innerHTML='<p class="not-found">no article was found based on serach</p>'
 
         }
             
