@@ -23,15 +23,15 @@ function getNews(news)
             <div class="img_area">
             <img src ="${element.urlToImage}" class="article-img" alt="${element.title}"></img>
             </div>
-            <h2 class="article_title">${element.title}
+            <h2 class="article-title">${element.title}
             </h2>
             
             </a>
 
-            <li class="article-description">${element.description || "description not available"}</li>
+            <p class="article-description">${element.description || "Description not available"}</p>
 
-            <div class ="article-author">-${element.author ? element.author:"Anon"}</div><br>
-            
+            <span class ="article-author"> - ${element.author ? element.author:"Anon"}</span><br>
+           
             </li>
             </section>
             
@@ -42,7 +42,7 @@ function getNews(news)
         }
         else
         {
-               article_area.innerHTML='<p class="not-found">no article was found based on serach</p>'
+               article_area.innerHTML='<p class="not-found">No article was found based on the search.</p>'
 
         }
             
