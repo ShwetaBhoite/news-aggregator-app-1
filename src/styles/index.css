@@ -1,4 +1,5 @@
 @import "./reset.css";
+
 *{
   margin:0;
   padding:0;
@@ -16,13 +17,19 @@ body{
 h1{
   color:white;
 
-  margin:15px;
+  margin-left:45%;
+  margin-top: 15px;
   text-align:center;
-  border: 1px thin white;
+  padding: 10px;
+  padding-left: 23px;
+  padding-right: 23px;
+  display: inline-block;
+  box-sizing: border-box;
+  border: 1px solid rgb(189,181,181);
   
   
 }
-div.search-bar
+.search-bar
 {
   color:white;
   background-color:black;
@@ -38,12 +45,12 @@ div.search-bar
   color:white;
     outline: none;
 }
-input
+input[type=text]
 {
-  border-top-style: hidden;
-      border-right-style: hidden;
-      border-left-style: hidden;
-      border-bottom-style: groove;
+   border:none;
+   padding: 12px 20px;
+   width:100%;
+   margin-left: 15px;
 }
 
 .container
@@ -54,42 +61,48 @@ input
   margin:40px;
   color:black;
 }
+.article{
+  margin:10px;
+  padding: 10px;
+
+}
 
 
   .article-title{
     text-align: center;
     margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 10px;
     color:black;
     
     
   }
   .article-description{
-    text-align: center;
+    text-align: left;
     font-size: medium;
     margin: 20px;
+    margin-left: 10px;
     font:bold;
-    color:blue;
-
-    color:black;
+   color:black;
+    }
     
-  
-    
-    
-  }
   .article-link
   {
-    margin:30px;
+    margin-bottom:30px;
     padding:20px;
   }
   .article-author{
   
-    text-align: left;
+   margin-left:30px;
     margin-top: 20px;
     margin-bottom: 20px;
     color: red;
+    float: right;
   }
   .img_area img{
     width:100%;
+    height: 15vw;
+    object-fit: cover;
   }
   .container:hover{
     box-shadow: 2px 2px 10px white;
@@ -108,10 +121,12 @@ input
 }
 section{
   color:white;
+  
 }
 
 .not-found{
   color:red;
+  text-align: center;
 }
 .load{
   color:red;
