@@ -19,18 +19,16 @@ function getNews(news)
             output+=
             `
             <section class= "container">
-            <li class ="article"><a class="article-link" href="${element.url}" target= " _blank">
+            <li class ="article">
+            <a class="article-link" href="${element.url}" target= " _blank">
             <div class="img_area">
             <img src ="${element.urlToImage}" class="article-img" alt="${element.title}"></img>
             </div>
+            </a>
             <h2 class="article-title">${element.title}
             </h2>
-            
-            </a>
-
-            <p class="article-description">${element.description || "Description not available"}</p>
-
-            <span class ="article-author"> - ${element.author ? element.author:"Anon"}</span><br>
+             <p class="article-description">${element.description || "Description not available"}</p>
+             <span class ="article-author"> - ${element.author ? element.author:"Anon"}</span><br>
            
             </li>
             </section>
