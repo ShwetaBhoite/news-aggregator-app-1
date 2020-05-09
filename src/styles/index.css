@@ -36,10 +36,8 @@ h1{
   margin-left: 15px;
   border-bottom: 1px solid white;
   grid-template-rows: auto;
+  }
   
-  
-
-}
 #search{
   background-color: black;
   color:white;
@@ -56,12 +54,14 @@ input[type=text]
 .container
 {
   width: 90%;
-  background-color:grey;
+  background-color:plum;
   border-radius: 5px;
   margin:40px;
   color:black;
+  height: auto;
 }
 .article{
+  list-style-type: none;
   margin:10px;
   padding: 10px;
 
@@ -69,21 +69,30 @@ input[type=text]
 
 
   .article-title{
+    background: none;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
     text-align: center;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    margin-left: 10px;
+    margin: 10px;
     color:black;
     
     
   }
   .article-description{
-    text-align: left;
-    font-size: medium;
+    font-size: 15px;
+    background: none;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    font-family: sans-serif;
+    color:black;
     margin: 20px;
-    margin-left: 10px;
-    font:bold;
-   color:black;
+   
     }
     
   .article-link
@@ -92,12 +101,14 @@ input[type=text]
     padding:20px;
   }
   .article-author{
-  
-   margin-left:30px;
-    margin-top: 20px;
-    margin-bottom: 20px;
+    background: none;
+    margin: 20px;
+    font-size: 10px;
     color: red;
-    float: right;
+    text-align: right;
+    display: block;
+    font-family:'Trebuchet MS';
+  
   }
   .img_area img{
     width:100%;
