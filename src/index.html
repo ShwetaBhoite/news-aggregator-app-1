@@ -1,31 +1,36 @@
-<!-- Enter your HTML code here -->
-<!DOCTYPE html>
+<!-- HTML code-->
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>News Aggregator APP</title>
-    <link rel="stylesheet" href="styles/index.css">
-</head>
+<meta charset ="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-<body>
-    <!-- Main Header section and toggle key -->
-            <div class="mainheading">NEWS AGGREGATOR</div>  
-            <div class="toggletxt">Toggle to Lite Mode</div>  
-            <label class="switch">
-                <input type="checkbox" id="toggle_action" unchecked >
-                <div class="slider round"></div>
-            </label>
-            
-    <!--  -->
-    <!-- Search Bar  -->
-    <div class="search-bar">
-      <input type="text" name="search" id="search" 
-      placeholder="Type and press enter to search..."/>
-    </div>
-    <!-- News Display Area -->
-            <ul id="news-articles"></ul>
-                  
-      <script src="scripts/index.js"></script>
+<title>News Agreegator App</title>
+<link rel="stylesheet" href="styles/index.css">
+
+<body onload="start()">
+<h1>NEWS AGGREGATOR</h1>
+
+<!--search Bar-->
+
+<div class="search-bar">
+<input type="text" id="search" name="search"
+placeholder="Type and press enter to search...">
+
+
+</div>
+<!--display area of nesws-->
+<ul id="news-articles"></ul>
+
+<script src="scripts/index.js"></script>
+
 </body>
+
+
 </html>
+
+
+
+
+
+
+
