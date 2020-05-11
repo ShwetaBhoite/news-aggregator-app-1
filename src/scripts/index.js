@@ -1,3 +1,20 @@
+// Lite Mode/Dark Mode Toggle Function//
+document.querySelector("#toggle_action").addEventListener('change',toggle_func)
+
+function toggle_func(e){
+  if (e.target.checked)
+   {
+    document.documentElement.setAttribute('data-theme', 'lite');
+    document.querySelector(".toggletxt").innerHTML="Toggle to Dark Mode";
+    }
+else
+   {
+    document.documentElement.setAttribute('data-theme', 'dark');
+    document.querySelector(".toggletxt").innerHTML="Toggle to Lite Mode";
+   }   
+}
+
+//Api-Key//
 const apikey="9044f55e4b9e4ad39054d37f77e6457a";
 var article_area=document.getElementById("news-articles");
 //Function to have formatted NEWS//
@@ -11,7 +28,6 @@ function getNews(news){
           <div class="img_area">
           <img src="${ind.urlToImage}" class="article-img" alt="${ind.title}"></img>
           </div>
-         
           <h2 class="article-title">${ind.title}</h2>
           <p class="article-description">${ind.description || "Description not available"}</p> <br>
           <span class="article-author">-${ind.author? ind.author: "Anon"}</span><br>
