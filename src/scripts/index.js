@@ -1,90 +1,62 @@
-//{
-    document.documentElement.setAttribute('data-theme','dark');
-//}
-
-
 const apikey="9044f55e4b9e4ad39054d37f77e6457a";
 var article_area=document.getElementById("news-articles");
+//Function to have formatted NEWS//
+function getNews(news){
+  let output="";
+  if(news.totalResults>0){
+    news.articles.forEach(ind=>{
+      output+= 
+        ` <section class="container">
+          <li class="article"><a class="article-link" href="${ind.url}" target="_blank">
+          <div class="img_area">
+          <img src="${ind.urlToImage}" class="article-img" alt="${ind.title}"></img>
+          </div>
+         
+          <h2 class="article-title">${ind.title}</h2>
+          <p class="article-description">${ind.description || "Description not available"}</p> <br>
+          <span class="article-author">-${ind.author? ind.author: "Anon"}</span><br>
+          </a>
+          </li>
+          </section>
+        `;
+    });
+    article_area.innerHTML=output;
+  }
+  else
+  { 
+    article_area.innerHTML='<li class="not-found">No article was found based on the search.</li>';
+  }
+};
+// Function to retreive news using Fetch API with Await//
+async function retreive(searchValueText=""){
 
-//function to have formatted news in form of json//
-
-function getNews(news)
-{
-    let output="";
-    let totalresult="";
-    console.log(news)
-    console.log(news.totalResults)
-    if(news.totalResults>0){
-        news.articles.forEach(element => {
-            output+=
-            `
-            <section class= "container">
-            <li class ="article">
-            <a class="article-link" href="${element.url}" target= " _blank">
-            <div class="img_area">
-            <img src ="${element.urlToImage}" class="article-img" alt="${element.title}"></img>
-            </div>
-            </a>
-            <h2 class="article-title">${element.title}
-            </h2>
-             <p class="article-description">${element.description || "Description not available"}</p>
-             <span class ="article-author"> - ${element.author ? element.author:"Anon"}</span><br>
-           
-            </li>
-            </section>
-            
-            `
-            ;
-        });
-            article_area.innerHTML=output;
-        }
-        else
-        {
-               article_area.innerHTML='<p class="not-found">No article was found based on the search.</p>'
-
-        }
-            
-       
-    };
-
-
-    //async function wth await
-async function loading(searchValueWord=""){
-
-    article_area.innerHTML='<li class="load">News are loading</li>'
-
-    if(searchValueWord!="")
+    article_area.innerHTML='<p class="load">News are Loading...</p>';
+    
+    if(searchValueText!=""){
+      url=`https://newsapi.org/v2/everything?q=${searchValueText}&apiKey=${apikey}`;
+    }
+    else
     {
-        url=`http://newsapi.org/v2/everything?q=${searchValueWord}=At&apikey=${apikey}`;
+      url=`https://newsapi.org/v2/top-headlines?country=in&apiKey=${apikey}`;
     }
-    else{
-        url=`https://newsapi.org/v2/top-headlines?country=in&apiKey=${apikey}`;
-    }
-    //api call//
     const response=await fetch(url);
     const result=await response.json();
     getNews(result);
 }
-
-//text value is get from searchbar and pass to retrive function//
-async function searchValue(event)
-{
-    if(event.which === 13||event.keycode===13||event.key === "Enter")
-    {
-        console.log(event);
-        console.log(event.which);
-        console.log(event.key);
-        console.log(event.keycode);
-
-        loading(event.target.value);
-        console.log(event.target.value);
-    }
-}
-
-//attached event listener //
-
+//Get text value from Searchbar and pass to retreive function//
+async function searchvalue(e){  
+    if (event.which === 13 || event.keyCode === 13 || event.key === "Enter")
+     {
+      retreive(e.target.value);
+     }
+};
+//Attached Event listener for Searchbar to retreive text from Searchbar//
 function start(){
-console.log("start function called in onload")
-document.getElementById("search").addEventListener("keypress",searchValue);
-loading();
+  document.getElementById("search").addEventListener('keypress',searchvalue);
+  retreive();
 }
+//Initializing Function//
+(function(){
+  start();}
+)();
+
