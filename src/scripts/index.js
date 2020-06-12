@@ -1,78 +1,100 @@
-// Lite Mode/Dark Mode Toggle Function//
-document.querySelector("#toggle_action").addEventListener('change',toggle_func)
+import "../styles/index.scss";
 
-function toggle_func(e){
-  if (e.target.checked)
-   {
-    document.documentElement.setAttribute('data-theme', 'lite');
-    document.querySelector(".toggletxt").innerHTML="Toggle to Dark Mode";
+//<start> code to search for news
+var inputTxt = document.getElementById("search");
+inputTxt.addEventListener("keypress", searchValue);
+function searchValue(e) {
+  var searchText = document.getElementById("search").value;
+
+  if (e.which == 13) {
+    if (searchText != "") {
+      var searchUrl = `everything?q=${searchText}`;
+      beforeLoad();
+      fetchNews(searchUrl);
+    } else {
+      beforeLoad();
+      fetchNews("top-headlines?country=in"); //by default it fetch news related to india
     }
-else
-   {
-    document.documentElement.setAttribute('data-theme', 'dark');
-    document.querySelector(".toggletxt").innerHTML="Toggle to Lite Mode";
-   }   
+  }
+}
+//<end>
+
+//function to toggle
+document.getElementById("toggler").addEventListener("click", toogleColor);
+function toogleColor() {
+  var bodyColor = document.body;
+  bodyColor.classList.toggle("dark-mode");
+
+  var btnText = document.getElementById("toggler");
+  if (btnText.innerHTML === "Dark Mode") {
+    btnText.innerHTML = "Light Mode";
+  } else {
+    btnText.innerHTML = "Dark Mode";
+  }
 }
 
-//Api-Key//
-const apikey="9044f55e4b9e4ad39054d37f77e6457a";
-var article_area=document.getElementById("news-articles");
-//Function to have formatted NEWS//
-function getNews(news){
-  let output="";
-  if(news.totalResults>0){
-    news.articles.forEach(ind=>{
-      output+= 
-        ` <section class="container">
-          <li class="article"><a class="article-link" href="${ind.url}" target="_blank">
-          <div class="img_area">
-          <img src="${ind.urlToImage}" class="article-img" alt="${ind.title}"></img>
-          </div>
-          <h2 class="article-title">${ind.title}</h2>
-          <p class="article-description">${ind.description || "Description not available"}</p> <br>
-          <span class="article-author">-${ind.author? ind.author: "Anon"}</span><br>
-          </a>
-          </li>
-          </section>
-        `;
+// function to fetch news list
+async function fetchNews(searchUrl) {
+  const res = await fetch(
+    `https://newsapi.org/v2/${searchUrl}&apiKey=725e179c5acb4baeb253f3b58519fce9`
+  );
+  const data = await res.json();
+
+  if (data.totalResults > 0) {
+    var output = "";
+    output += '<ul id="news-articles">';
+    //array to fetch elements
+    data.articles.forEach((i) => {
+      output += `<li class="article">
+                            <img src=${i.urlToImage} alt=${i.source.name} style="width:100%;margin-top:5px;" class="article-img">
+                            
+                                <h2 class="article-title"><b>${i.title}</b></h2> 
+                                <p class="article-description">${i.description}</p> 
+                                <span class="article-author">`;
+      if (i.author != null) {
+        output += `- ${i.author}</span>`;
+      } else {
+        output += `-N.A</span>`;
+      }
+
+      output += `<br> <a href=${i.url} class="article-link" target='_blank'><em>Read More At: ${i.source.name}</em></a>
+            
+                    </li>`;
     });
-    article_area.innerHTML=output;
-  }
-  else
-  { 
-    article_area.innerHTML='<li class="not-found">No article was found based on the search.</li>';
-  }
-};
-// Function to retreive news using Fetch API with Await//
-async function retreive(searchValueText=""){
+    output += "</ul>";
 
-    article_area.innerHTML='<p class="load">News are Loading...</p>';
-    
-    if(searchValueText!=""){
-      url=`https://newsapi.org/v2/everything?q=${searchValueText}&apiKey=${apikey}`;
-    }
-    else
-    {
-      url=`https://newsapi.org/v2/top-headlines?country=in&apiKey=${apikey}`;
-    }
-    const response=await fetch(url);
-    const result=await response.json();
-    getNews(result);
+    document.getElementById("news-section").innerHTML = output;
+  } else if (data.totalResults === 0) {
+    var invalidData = document.getElementById("news-section");
+    invalidData.innerHTML =
+      "<h3>No article was found based on the search.</h3>";
+    invalidData.style.color = "red";
+    invalidData.classList.add("not-found");
+  }
 }
-//Get text value from Searchbar and pass to retreive function//
-async function searchvalue(e){  
-    if (event.which === 13 || event.keyCode === 13 || event.key === "Enter")
-     {
-      retreive(e.target.value);
-     }
+fetchNews("top-headlines?country=in"); //by default it fetch news related to india
+
+//Take to top functionality
+
+var mybutton = document.getElementById("myBtn");
+
+// When the user scrolls down 20px from the top of the document, show the button
+window.onscroll = function () {
+  scrollFunction();
 };
-//Attached Event listener for Searchbar to retreive text from Searchbar//
-function start(){
-  document.getElementById("search").addEventListener('keypress',searchvalue);
-  retreive();
+
+function scrollFunction() {
+  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+    mybutton.style.display = "block";
+  } else {
+    mybutton.style.display = "none";
+  }
 }
-//Initializing Function//
-(function(){
-  start();}
-)();
+
+document.getElementById("myBtn").addEventListener("click", topFunction);
+// When the user clicks on the button, scroll to the top of the document
+function topFunction() {
+  document.body.scrollTop = 0;
+  document.documentElement.scrollTop = 0;
+}
 
